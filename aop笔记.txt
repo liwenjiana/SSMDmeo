@@ -1,0 +1,44 @@
+Spring AOP
+Spring AOP 底层封装了 AspectJ API.
+
+使用步骤
+
+1.导入包 AspectJ API
+<!-- Spring AOP 依赖的包 -->
+<dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjrt</artifactId>
+    <version>1.8.10</version>
+</dependency>
+<dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjweaver</artifactId>
+    <version>1.8.10</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-aop</artifactId>
+    <version>3.2.8.RELEASE</version>
+</dependency>
+
+2.创建 AOP 切面Bean组件
+
+@Component
+@Aspect //来自 AspectJ的注解
+public class DemoAspect {
+
+    //来自 AspectJ的注解
+    //在 userService的全部方法之前执行
+    //切面组件的demo方法
+    @Before("bean(userService)") 
+    public void demo(){
+        System.out.println("Hello World!"); 
+    }
+}
+
+3.配置Spring 开启AOP功能  添加spring配置文件AOP spring-aop.xml
+<!-- 组件扫描 -->
+<context:component-scan 
+    base-package="cn.tedu.store.aop"/>
+<!-- 启动 AspectJ 的注解 -->
+<aop:aspectj-autoproxy/>  
